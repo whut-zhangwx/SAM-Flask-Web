@@ -7,7 +7,8 @@
 - git clone
 
   ```shell
-  git clone 
+  git clone git@github.com:whut-zhangwx/SAM-Flask-Web.git
+  cd SAM-Flask-Web
   ```
 
 - 创建 Python 环境
