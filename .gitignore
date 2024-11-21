@@ -5,3 +5,4 @@ test.ipynb
 test.py
 assets/sam_onnx_vit_b.onnx
 assets/sam_vit_b_01ec64.pth
+test.py

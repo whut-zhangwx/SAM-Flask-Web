@@ -8,8 +8,8 @@ function preProcess(event) {
   const imageFile = event.target.files[0];
   
   if(imageFile) {
-    previewImage(imageFile)
-    setImage(imageFile)
+    previewImage(imageFile) // 将图片显示到前端页面
+    setImage(imageFile)     // 将图片传输到后端
   } else {
     alert('Please select an image to upload.');
   }

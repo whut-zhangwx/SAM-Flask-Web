@@ -27,7 +27,7 @@ class SamFlask(Flask):
       self.image_bgra = None
       logging.info(f"SAM Initialization is Complete")
 
-
+# convert a 1-channel zero-one mask to a bgra 4-channel image
 def mask2bgra(mask: np.ndarray) -> np.ndarray:
   '''
   mask.shape: [1, H, W] | [H, W]
@@ -42,6 +42,7 @@ def mask2bgra(mask: np.ndarray) -> np.ndarray:
   mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
   return mask_image
 
+# convert a bgr 3-channel image to a bgra 4-channel image
 def bgr2bgra(image_bgr: np.ndarray) -> np.ndarray:
   '''image_bgr.shape: [H, W, 3]'''
   logging.info(f"image.shape: {image_bgr.shape}, image.dtype: {image_bgr.dtype}")
@@ -68,7 +69,10 @@ def predictor_set_image():
   try:
     '''load the image from front end'''
     file = request.files['image']
-    image = np.frombuffer(file.read(), np.uint8)
+    logging.info(f"type(file): {type(file)}") # type(file): <class 'werkzeug.datastructures.file_storage.FileStorage'>
+    file_bytes = file.read()
+    logging.info(f"type(file_bytes): {type(file_bytes)}") # type(file_bytes): <class 'bytes'>
+    image = np.frombuffer(file_bytes, np.uint8)
     image = cv2.imdecode(image, cv2.IMREAD_COLOR) # BGR
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # BGR -> RGB (don't do this, it will cause confusion)
     app.image = image
@@ -147,3 +151,4 @@ if __name__ == "__main__":
   app.run(host="0.0.0.0", port=5000)
 
 # python flask_server_pytorch.py
+# http://0.0.0.0:5000/

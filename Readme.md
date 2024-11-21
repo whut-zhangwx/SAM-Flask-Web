@@ -33,7 +33,7 @@
 - 启动后端服务
 
   ```shell
-  cd back_end
+  cd backend
   python flask_server_pytorch.py
   # default address-port: http://0.0.0.0:5500/
   ```
@@ -41,7 +41,7 @@
 - 启动前端服务
 
   ```shell
-  cd front_end
+  cd frontend
   python -m http.server --bind ADDRESS PORT
   # default address-port: http://0.0.0.0:5501/
   ```
