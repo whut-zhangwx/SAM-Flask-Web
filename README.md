@@ -58,10 +58,10 @@
 
 ## 示例
 
-![demo1](./assets/frontend_demo1.png)
+![demo1](./assets/displayimage.png)
 
-![demo1](./assets/frontend_demo2.png)
+![demo2](./assets/segment_lawn.png)
 
-![demo1](./assets/frontend_demo3.png)
+![demo3](./assets/segment_building.png)
 
 
