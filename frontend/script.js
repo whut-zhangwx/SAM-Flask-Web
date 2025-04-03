@@ -101,10 +101,17 @@ function decode(x, y) {
   .then(data => {
     // 构造 base64 图像 URL
     const imageBase64 = `data:image/jpeg;base64,${data.image}`;
-    // document.getElementById('previewImage').src = imageBase64;
+    const areaProportion = data.proportion;
+
+    // set the image
     const image = document.getElementById('previewImage');
     image.src = imageBase64;
-    // image.style.display = block; // display the image
+    // set the text
+    const spanText = document.getElementById('text')
+    // spanText.textContent = `🔮Proportion of seleced area is ${(areaProportion * 100).toFixed(2)}%🦄`;
+    spanText.innerHTML = `🔮Proportion of seleced area is \
+    <span style="color: blue;"> ${(areaProportion * 100).toFixed(2)}% </span>\
+    🦄`;
   })
   .catch(error => {
     console.error('Error fetching the image:', error);

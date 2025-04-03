@@ -16,10 +16,13 @@
   ```shell
   conda create --name samenv python=3.8
   codna activate samenv
-  pip install numpy cv2 flask flask_cors segment_anything
+  pip install numpy opencv-python flask flask_cors segment_anything
+  pip install torch torchvision torchaudio
   ```
 
 - 下载模型权重
+
+  下载模型权重放入 `./assets/` 目录下
 
   ```shell
   # (Huge)  vit_h (default):
@@ -28,6 +31,13 @@
   https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
   # (Base)  vit_b:
   https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+  ```
+
+  Linux 可以借助 `wget` 命令来下载对应的权重文件
+
+  ```shell
+  # wget -P [directory-prefix] [url]
+  wget -P ./assets https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
   ```
 
 - 启动后端服务

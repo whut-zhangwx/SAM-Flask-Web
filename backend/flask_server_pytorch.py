@@ -52,6 +52,11 @@ def bgr2bgra(image_bgr: np.ndarray) -> np.ndarray:
   image_bgra = cv2.merge((image_bgr, alpha_channnel)) # BGR + A -> BGRA
   return image_bgra
 
+# calculate the area proportion of segmented area in whole image
+def proportion_of_area(mask: np.ndarray) -> np.float64:
+  '''mask.shape: [1, H, W] | [H, W]'''
+  return np.sum(mask, axis=None) / np.multiply(*mask.shape)
+
 
 app = SamFlask(__name__, model_type, sam_checkpoint, device)
 
@@ -128,6 +133,8 @@ def decode_embedding():
   logging.info(f"masks.shape: {masks.shape}, scores.shape: {scores.shape}")
 
   mask = masks[np.argmax(scores)] # get the mask with the highest score of the three masks
+  proportion = proportion_of_area(mask) # get the proporation of the segmented area in whole image
+
   mask_image = mask2bgra(mask=mask) # convet the 0-1 single channel mask to BGRA 4 channel image
   logging.info(f"mask_image.shape: {mask_image.shape}, type: {type(mask_image)}")
 
@@ -144,7 +151,7 @@ def decode_embedding():
   if not ret: return jsonify({"status": "Failed", "message": "Failed to encode image"})
   base64_image = base64.b64encode(png_image).decode('utf-8')
 
-  return jsonify({"image": base64_image})
+  return jsonify({"image": base64_image, "proportion": proportion})
 
 
 if __name__ == "__main__":
